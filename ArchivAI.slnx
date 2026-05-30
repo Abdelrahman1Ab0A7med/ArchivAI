@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ArchivAI.Api/ArchivAI.Api.csproj" />
+  <Project Path="ArchivAI.Application/ArchivAI.Application.csproj" />
+  <Project Path="ArchivAI.core/ArchivAI.core.csproj" />
+  <Project Path="ArchivAI.Infrastructure/ArchivAI.Infrastructure.csproj" />
+</Solution>
