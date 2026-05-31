@@ -6,7 +6,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "ArchivAI.core": "1.0.0"
+          "ArchivAI.Core": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ArchivAI.Application.dll": {}
@@ -15,14 +15,14 @@
           "bin/placeholder/ArchivAI.Application.dll": {}
         }
       },
-      "ArchivAI.core/1.0.0": {
+      "ArchivAI.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
-          "bin/placeholder/ArchivAI.core.dll": {}
+          "bin/placeholder/ArchivAI.Core.dll": {}
         },
         "runtime": {
-          "bin/placeholder/ArchivAI.core.dll": {}
+          "bin/placeholder/ArchivAI.Core.dll": {}
         }
       }
     }
@@ -33,16 +33,16 @@
       "path": "../ArchivAI.Application/ArchivAI.Application.csproj",
       "msbuildProject": "../ArchivAI.Application/ArchivAI.Application.csproj"
     },
-    "ArchivAI.core/1.0.0": {
+    "ArchivAI.Core/1.0.0": {
       "type": "project",
-      "path": "../ArchivAI.core/ArchivAI.core.csproj",
-      "msbuildProject": "../ArchivAI.core/ArchivAI.core.csproj"
+      "path": "../ArchivAI.core/ArchivAI.Core.csproj",
+      "msbuildProject": "../ArchivAI.core/ArchivAI.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "ArchivAI.Application >= 1.0.0",
-      "ArchivAI.core >= 1.0.0"
+      "ArchivAI.Core >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -81,8 +81,8 @@
             "D:\\ArchivAI\\ArchivAI.Application\\ArchivAI.Application.csproj": {
               "projectPath": "D:\\ArchivAI\\ArchivAI.Application\\ArchivAI.Application.csproj"
             },
-            "D:\\ArchivAI\\ArchivAI.core\\ArchivAI.core.csproj": {
-              "projectPath": "D:\\ArchivAI\\ArchivAI.core\\ArchivAI.core.csproj"
+            "D:\\ArchivAI\\ArchivAI.core\\ArchivAI.Core.csproj": {
+              "projectPath": "D:\\ArchivAI\\ArchivAI.core\\ArchivAI.Core.csproj"
             }
           }
         }
