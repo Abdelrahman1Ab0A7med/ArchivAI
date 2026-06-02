@@ -1,8 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="microsoft.EntityFrameworkCore.SqlServer" Version="10.0.8" />
+    <PackageReference Include="microsoft.EntityFrameworkCore.Tools" Version="10.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ArchivAI.Application\ArchivAI.Application.csproj" />
-    <ProjectReference Include="..\ArchivAI.core\ArchivAI.core.csproj" />
+    <ProjectReference Include="..\ArchivAI.core\ArchivAI.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

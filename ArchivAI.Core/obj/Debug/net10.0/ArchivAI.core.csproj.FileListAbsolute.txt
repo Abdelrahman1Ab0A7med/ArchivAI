@@ -9,3 +9,4 @@ D:\ArchivAI\ArchivAI.core\obj\Debug\net10.0\ArchivAI.core.dll
 D:\ArchivAI\ArchivAI.core\obj\Debug\net10.0\refint\ArchivAI.core.dll
 D:\ArchivAI\ArchivAI.core\obj\Debug\net10.0\ArchivAI.core.pdb
 D:\ArchivAI\ArchivAI.core\obj\Debug\net10.0\ref\ArchivAI.core.dll
+D:\ArchivAI\ArchivAI.core\obj\Debug\net10.0\ArchivAI.Core.sourcelink.json

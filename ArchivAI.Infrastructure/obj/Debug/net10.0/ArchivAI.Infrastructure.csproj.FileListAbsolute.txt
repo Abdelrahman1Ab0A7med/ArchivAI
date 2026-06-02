@@ -15,3 +15,6 @@ D:\ArchivAI\ArchivAI.Infrastructure\obj\Debug\net10.0\ArchivAI.Infrastructure.dl
 D:\ArchivAI\ArchivAI.Infrastructure\obj\Debug\net10.0\refint\ArchivAI.Infrastructure.dll
 D:\ArchivAI\ArchivAI.Infrastructure\obj\Debug\net10.0\ArchivAI.Infrastructure.pdb
 D:\ArchivAI\ArchivAI.Infrastructure\obj\Debug\net10.0\ref\ArchivAI.Infrastructure.dll
+D:\ArchivAI\ArchivAI.Infrastructure\bin\Debug\net10.0\ArchivAI.Infrastructure.runtimeconfig.json
+D:\ArchivAI\ArchivAI.Infrastructure\obj\Debug\net10.0\ArchivAI.Infrastructure.sourcelink.json
+D:\ArchivAI\ArchivAI.Infrastructure\obj\Debug\net10.0\ArchivAI.Infrastructure.genruntimeconfig.cache

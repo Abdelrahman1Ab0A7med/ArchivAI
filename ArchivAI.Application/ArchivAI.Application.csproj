@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\ArchivAI.core\ArchivAI.core.csproj" />
+    <ProjectReference Include="..\ArchivAI.core\ArchivAI.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

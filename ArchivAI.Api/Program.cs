@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using ArchivAI.Api.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +17,7 @@ namespace ArchivAI.Api
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddApplicationServices(builder.Configuration);
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

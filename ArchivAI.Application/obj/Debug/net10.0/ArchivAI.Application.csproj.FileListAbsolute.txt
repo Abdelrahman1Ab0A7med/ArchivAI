@@ -13,3 +13,4 @@ D:\ArchivAI\ArchivAI.Application\obj\Debug\net10.0\ArchivAI.Application.dll
 D:\ArchivAI\ArchivAI.Application\obj\Debug\net10.0\refint\ArchivAI.Application.dll
 D:\ArchivAI\ArchivAI.Application\obj\Debug\net10.0\ArchivAI.Application.pdb
 D:\ArchivAI\ArchivAI.Application\obj\Debug\net10.0\ref\ArchivAI.Application.dll
+D:\ArchivAI\ArchivAI.Application\obj\Debug\net10.0\ArchivAI.Application.sourcelink.json

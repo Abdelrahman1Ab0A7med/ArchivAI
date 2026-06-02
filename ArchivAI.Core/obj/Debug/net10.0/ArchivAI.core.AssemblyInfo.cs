@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArchivAI.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ecb7cc3b7751789e12704b632ae5ef262b05cad0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e09d7f5cc55602e66073eeec0179addc05db93b3")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArchivAI.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArchivAI.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
