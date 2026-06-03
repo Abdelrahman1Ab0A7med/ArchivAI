@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArchivAI.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e09d7f5cc55602e66073eeec0179addc05db93b3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b02c7e1de74ccb308cc442c237f4f08b1161859")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArchivAI.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArchivAI.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
