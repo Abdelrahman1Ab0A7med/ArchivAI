@@ -1128,7 +1128,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "ArchivAI.Core": "1.0.0"
+          "ArchivAI.core": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ArchivAI.Application.dll": {}
@@ -1137,14 +1137,14 @@
           "bin/placeholder/ArchivAI.Application.dll": {}
         }
       },
-      "ArchivAI.Core/1.0.0": {
+      "ArchivAI.core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
-          "bin/placeholder/ArchivAI.Core.dll": {}
+          "bin/placeholder/ArchivAI.core.dll": {}
         },
         "runtime": {
-          "bin/placeholder/ArchivAI.Core.dll": {}
+          "bin/placeholder/ArchivAI.core.dll": {}
         }
       }
     }
@@ -2862,16 +2862,16 @@
       "path": "../ArchivAI.Application/ArchivAI.Application.csproj",
       "msbuildProject": "../ArchivAI.Application/ArchivAI.Application.csproj"
     },
-    "ArchivAI.Core/1.0.0": {
+    "ArchivAI.core/1.0.0": {
       "type": "project",
-      "path": "../ArchivAI.core/ArchivAI.Core.csproj",
-      "msbuildProject": "../ArchivAI.core/ArchivAI.Core.csproj"
+      "path": "../ArchivAI.core/ArchivAI.core.csproj",
+      "msbuildProject": "../ArchivAI.core/ArchivAI.core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "ArchivAI.Application >= 1.0.0",
-      "ArchivAI.Core >= 1.0.0",
+      "ArchivAI.core >= 1.0.0",
       "BCrypt.Net-Next >= 4.2.0",
       "System.IdentityModel.Tokens.Jwt >= 8.18.0",
       "microsoft.EntityFrameworkCore.SqlServer >= 10.0.8",

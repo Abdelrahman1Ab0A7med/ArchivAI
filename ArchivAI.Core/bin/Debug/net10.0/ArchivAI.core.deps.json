@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v10.0": {
-      "ArchivAI.Core/1.0.0": {
+      "ArchivAI.core/1.0.0": {
         "runtime": {
-          "ArchivAI.Core.dll": {}
+          "ArchivAI.core.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "ArchivAI.Core/1.0.0": {
+    "ArchivAI.core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

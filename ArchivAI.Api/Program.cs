@@ -18,6 +18,7 @@ namespace ArchivAI.Api
             builder.Services.AddOpenApi();
 
             builder.Services.AddApplicationServices(builder.Configuration);
+            builder.Services.AddControllers();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -46,7 +47,7 @@ namespace ArchivAI.Api
                 return forecast;
             })
             .WithName("GetWeatherForecast");
-
+            app.MapControllers();
             app.Run();
         }
     }

@@ -2,28 +2,28 @@
   "version": 4,
   "targets": {
     "net10.0": {
-      "ArchivAI.Core/1.0.0": {
+      "ArchivAI.core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
-          "bin/placeholder/ArchivAI.Core.dll": {}
+          "bin/placeholder/ArchivAI.core.dll": {}
         },
         "runtime": {
-          "bin/placeholder/ArchivAI.Core.dll": {}
+          "bin/placeholder/ArchivAI.core.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "ArchivAI.Core/1.0.0": {
+    "ArchivAI.core/1.0.0": {
       "type": "project",
-      "path": "../ArchivAI.core/ArchivAI.Core.csproj",
-      "msbuildProject": "../ArchivAI.core/ArchivAI.Core.csproj"
+      "path": "../ArchivAI.core/ArchivAI.core.csproj",
+      "msbuildProject": "../ArchivAI.core/ArchivAI.core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "ArchivAI.Core >= 1.0.0"
+      "ArchivAI.core >= 1.0.0"
     ]
   },
   "packageFolders": {

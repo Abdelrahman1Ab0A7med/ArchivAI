@@ -9,7 +9,7 @@
       "ArchivAI.Infrastructure/1.0.0": {
         "dependencies": {
           "ArchivAI.Application": "1.0.0",
-          "ArchivAI.Core": "1.0.0",
+          "ArchivAI.core": "1.0.0",
           "BCrypt.Net-Next": "4.2.0",
           "System.IdentityModel.Tokens.Jwt": "8.18.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "10.0.8",
@@ -827,7 +827,7 @@
       },
       "ArchivAI.Application/1.0.0": {
         "dependencies": {
-          "ArchivAI.Core": "1.0.0"
+          "ArchivAI.core": "1.0.0"
         },
         "runtime": {
           "ArchivAI.Application.dll": {
@@ -836,9 +836,9 @@
           }
         }
       },
-      "ArchivAI.Core/1.0.0": {
+      "ArchivAI.core/1.0.0": {
         "runtime": {
-          "ArchivAI.Core.dll": {
+          "ArchivAI.core.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1221,7 +1221,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "ArchivAI.Core/1.0.0": {
+    "ArchivAI.core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
