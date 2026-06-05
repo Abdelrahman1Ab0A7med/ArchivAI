@@ -13,6 +13,8 @@ namespace ArchivAI.Api.Extensions
             services.AddDbContext<ArchivAIDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IAuthService, AuthService>(); 
+            services.AddScoped<IDocumentService, DocumentService>();
+            services.AddScoped<DocumentService>();
             services.AddScoped<AuthService>(); // Register AuthService for direct injection
             var jwtkey = configuration["JWTSettings:Key"];
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

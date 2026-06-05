@@ -32,6 +32,63 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ArchivAI.Api.Controllers.DocumentController",
+    "Method": "GetAll",
+    "RelativePath": "api/Document",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ArchivAI.Api.Controllers.DocumentController",
+    "Method": "GetById",
+    "RelativePath": "api/Document/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ArchivAI.Api.Controllers.DocumentController",
+    "Method": "Test",
+    "RelativePath": "api/Document/test",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ArchivAI.Api.Controllers.DocumentController",
+    "Method": "Upload",
+    "RelativePath": "api/Document/upload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ArchivAI.Api.Program\u002B\u003C\u003Ec__DisplayClass0_0",
     "Method": "\u003CMain\u003Eb__0",
     "RelativePath": "weatherforecast",
