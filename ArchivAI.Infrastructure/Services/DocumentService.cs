@@ -11,10 +11,12 @@ namespace ArchivAI.Infrastructure.Services
     {
         private readonly ArchivAIDbContext _context;
         private readonly string _uploadsPath;
+        private readonly IAIService _aiService;
 
-        public DocumentService(ArchivAIDbContext context)
+        public DocumentService(ArchivAIDbContext context, IAIService aiService)
         {
             _context = context;
+            _aiService = aiService; 
             _uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
             if (!Directory.Exists(_uploadsPath))
             {
@@ -62,6 +64,40 @@ namespace ArchivAI.Infrastructure.Services
             }
             return await MapToDto(document);
         }
+
+        public async Task<DocumentResponseDTO> SummarizeDocumentAsync(Guid documentId, Guid userId)
+        {
+            var document = _context.Documents.FirstOrDefault(d => d.Id == documentId && d.AppUserId == userId);
+            if (document == null)
+            {
+                throw new InvalidOperationException("Document not found");
+            }
+            document.Status = DocumentStatus.Processing;
+            document.UpdatedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+            try
+            {
+                
+                var text = await _aiService.ExtractTextFromFile(document.FilePath,Path.GetExtension(document.FilePath));
+                var summary = await _aiService.SummarizeAsync(text);
+                document.AISummary = summary;
+                document.Status = DocumentStatus.Ready;
+                document.UpdatedAt = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+                return await MapToDto(document);
+
+            }
+            catch (Exception)
+            {
+                document.Status = DocumentStatus.Failed;
+                document.UpdatedAt = DateTime.UtcNow;
+                await _context.SaveChangesAsync();
+                throw;
+
+            }
+        }
+
+        
 
         public async Task<DocumentResponseDTO> UploadAsync(UploadDocumentDTO documentDto, Guid UserId)
         {

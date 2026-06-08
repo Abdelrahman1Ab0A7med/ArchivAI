@@ -15,6 +15,8 @@ namespace ArchivAI.Api.Extensions
             services.AddScoped<IAuthService, AuthService>(); 
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<DocumentService>();
+            services.AddScoped<IAIService, AIService>();
+            services.AddScoped<AIService>();
             services.AddScoped<AuthService>(); // Register AuthService for direct injection
             var jwtkey = configuration["JWTSettings:Key"];
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

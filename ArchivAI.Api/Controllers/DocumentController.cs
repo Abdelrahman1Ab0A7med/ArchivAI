@@ -42,5 +42,12 @@ namespace ArchivAI.Api.Controllers
             var document = await _documentService.GetByIdAsync(id, user);
             return Ok(document);
         }
+        [HttpPost("{id}/summarize")]
+        public async Task<IActionResult> Summarize(Guid id)
+        {
+            var user = User.GetUserId();
+            var document = await _documentService.SummarizeDocumentAsync(id, user);
+            return Ok(document);
+        }
     }
 }
