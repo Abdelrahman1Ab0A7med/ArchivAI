@@ -137,12 +137,10 @@ namespace ArchivAI.Infrastructure.Services
             Id = doument.Id,
             Title = doument.Title,
             OriginalFileName = doument.OriginalFileName,
-            FilePath = doument.FilePath,
             FileSizeInBytes = doument.FileSizeInBytes,
             Type = doument.Type,
             Status = doument.Status,
             AISummary = doument.AISummary,
-            AppUserId = doument.AppUserId
         };
     }
 }
