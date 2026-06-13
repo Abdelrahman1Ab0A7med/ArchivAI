@@ -18,6 +18,8 @@ namespace ArchivAI.Api.Extensions
             services.AddScoped<IAIService, AIService>();
             services.AddScoped<AIService>();
             services.AddScoped<AuthService>(); // Register AuthService for direct injection
+            services.AddScoped<IBackGroundService, BackGroundService>();
+            services.AddScoped<BackGroundService>();
             var jwtkey = configuration["JWTSettings:Key"];
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

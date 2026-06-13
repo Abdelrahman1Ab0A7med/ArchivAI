@@ -1,9 +1,11 @@
-using System;
-using System.Linq;
 using ArchivAI.Api.Extensions;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Linq;
 
 namespace ArchivAI.Api
 {
@@ -19,6 +21,17 @@ namespace ArchivAI.Api
 
             builder.Services.AddApplicationServices(builder.Configuration);
             builder.Services.AddControllers();
+
+            //Hangfire configuration
+            builder.Services.AddHangfire(config =>
+            {
+                config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                      .UseSimpleAssemblyNameTypeSerializer()
+                      .UseRecommendedSerializerSettings()
+                      .UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection"));
+                      });
+            builder.Services.AddHangfireServer();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -36,7 +49,7 @@ namespace ArchivAI.Api
 
             app.MapGet("/weatherforecast", () =>
             {
-                var forecast =  Enumerable.Range(1, 5).Select(index =>
+                var forecast = Enumerable.Range(1, 5).Select(index =>
                     new WeatherForecast
                     (
                         DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
@@ -48,6 +61,7 @@ namespace ArchivAI.Api
             })
             .WithName("GetWeatherForecast");
             app.MapControllers();
+            app.UseHangfireDashboard(); 
             app.Run();
         }
     }

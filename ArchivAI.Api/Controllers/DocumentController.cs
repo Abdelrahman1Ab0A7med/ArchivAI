@@ -10,11 +10,12 @@ namespace ArchivAI.Api.Controllers
     public class DocumentController : ControllerBase
     {
         private readonly DocumentService _documentService;
+        private readonly BackGroundService _backGroundService;
 
-
-        public DocumentController(DocumentService documentService)
+        public DocumentController(DocumentService documentService ,BackGroundService backGroundService )
         {
             _documentService = documentService;
+            _backGroundService = backGroundService;
         }
         [HttpPost("test")]
         public IActionResult Test()
@@ -26,6 +27,7 @@ namespace ArchivAI.Api.Controllers
         {
             var user = User.GetUserId();
             var result = await _documentService.UploadAsync(file, user);
+            _backGroundService.EnqueueDocumentSummarization(result.Id, user);
             return Ok(result);
         }
         [HttpGet]
@@ -46,8 +48,9 @@ namespace ArchivAI.Api.Controllers
         public async Task<IActionResult> Summarize(Guid id)
         {
             var user = User.GetUserId();
-            var document = await _documentService.SummarizeDocumentAsync(id, user);
-            return Ok(document);
+
+            _backGroundService.EnqueueDocumentSummarization(id, user);
+            return Ok(new { message = "Summarization queued. Check back shortly." });
         }
     }
 }
