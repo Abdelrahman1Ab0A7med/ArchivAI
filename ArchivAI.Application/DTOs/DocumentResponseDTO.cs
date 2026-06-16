@@ -18,7 +18,7 @@ namespace ArchivAI.Application.DTOs
 
         // AI generated fields (we'll fill these in Milestone 4)
         public string? AISummary { get; set; }
-        public string? AIEmbedding { get; set; }
+       // public string? AIEmbedding { get; set; }
 
         // Who owns this document
       //  public Guid AppUserId { get; set; }
