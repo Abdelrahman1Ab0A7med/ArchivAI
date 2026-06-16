@@ -153,13 +153,14 @@ namespace ArchivAI.Infrastructure.Services
 
         private async Task<DocumentResponseDTO> MapToDto(Document doument) => new DocumentResponseDTO
         {
-
+            Id = doument.Id,
             Title = doument.Title,
             OriginalFileName = doument.OriginalFileName,
             FileSizeInBytes = doument.FileSizeInBytes,
             Type = doument.Type,
             Status = doument.Status,
             AISummary = doument.AISummary,
+            //AppUserId = doument.AppUserId,
         };
     }
 }

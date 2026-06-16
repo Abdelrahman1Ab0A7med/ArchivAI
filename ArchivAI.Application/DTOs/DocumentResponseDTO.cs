@@ -8,7 +8,7 @@ namespace ArchivAI.Application.DTOs
 {
     public class DocumentResponseDTO
     {
-        //public Guid Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string OriginalFileName { get; set; } = string.Empty;
        // public string FilePath { get; set; } = string.Empty;
@@ -21,7 +21,7 @@ namespace ArchivAI.Application.DTOs
         public string? AIEmbedding { get; set; }
 
         // Who owns this document
-        public Guid AppUserId { get; set; }
-        public AppUser AppUser { get; set; } = null!;
+      //  public Guid AppUserId { get; set; }
+        //public AppUser AppUser { get; set; } = null!;
     }
 }
