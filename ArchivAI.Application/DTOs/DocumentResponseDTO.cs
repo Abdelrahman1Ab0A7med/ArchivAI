@@ -11,7 +11,7 @@ namespace ArchivAI.Application.DTOs
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string OriginalFileName { get; set; } = string.Empty;
-        public string FilePath { get; set; } = string.Empty;
+       // public string FilePath { get; set; } = string.Empty;
         public long FileSizeInBytes { get; set; }
         public DocumentType Type { get; set; }
         public DocumentStatus Status { get; set; } = DocumentStatus.Pending;
