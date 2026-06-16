@@ -1,4 +1,5 @@
 ﻿using ArchivAI.Application.DTOs;
+using ArchivAI.Application.DTOs.Document;
 using ArchivAI.Application.Interfaces;
 using ArchivAI.Core.Entities;
 using ArchivAI.Core.Enums;
@@ -12,21 +13,23 @@ namespace ArchivAI.Infrastructure.Services
         private readonly ArchivAIDbContext _context;
         private readonly string _uploadsPath;
         private readonly IAIService _aiService;
+        private readonly ICacheService _cacheService;
 
-        public DocumentService(ArchivAIDbContext context, IAIService aiService)
+        public DocumentService(ArchivAIDbContext context, IAIService aiService, ICacheService cacheService)
         {
             _context = context;
-            _aiService = aiService; 
+            _aiService = aiService;
+            _cacheService = cacheService;
             _uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
             if (!Directory.Exists(_uploadsPath))
             {
                 Directory.CreateDirectory(_uploadsPath);
             }
         }
-        public Task<bool> DeleteAsync(Guid id, Guid UserId)
+        public async Task<bool> DeleteAsync(Guid id, Guid UserId)
         {
             var document = _context.Documents.FirstOrDefault(d => d.Id == id && d.AppUserId == UserId);
-            if (document == null) return Task.FromResult(false);
+            if (document == null) return false;
             if (File.Exists(document.FilePath))
             {
                 File.Delete(document.FilePath);
@@ -34,25 +37,40 @@ namespace ArchivAI.Infrastructure.Services
 
             _context.Documents.Remove(document);
             _context.SaveChanges();
-
-            return Task.FromResult(true);
+            await _cacheService.RemoveByPrefixAsync($"doc:{UserId}"); //remove the cache for the user's documents to ensure the deleted document is not included in future queries
+            return true;
         }
 
-        public async Task<List<DocumentResponseDTO>> GetAllAsync(Guid UserId)
+        public async Task<PaginatedResult<DocumentResponseDTO>> GetAllAsync(DocumentQueryDTO documentQuery, Guid UserId)
         {
-            return await _context.Documents.Where(d => d.AppUserId == UserId)
-                        .Select(d => new DocumentResponseDTO
-                        {
-                            Id = d.Id,
-                            Title = d.Title,
-                            OriginalFileName = d.OriginalFileName,
-                            FilePath = d.FilePath,
-                            FileSizeInBytes = d.FileSizeInBytes,
-                            Type = d.Type,
-                            Status = d.Status,
-                            AISummary = d.AISummary,
-                            AppUserId = d.AppUserId
-                        }).ToListAsync();
+            var cacheKey = $"doc:{UserId}page:{documentQuery.PageNumber}size:{documentQuery.PageSize}title:{documentQuery.SearchTitle}";
+
+            var cachedResult = await _cacheService.GetASync<PaginatedResult<DocumentResponseDTO>>(cacheKey);
+
+            if (cachedResult != null) return cachedResult;
+
+            var query = _context.Documents.Where(d => d.AppUserId == UserId);
+
+            if (!string.IsNullOrEmpty(documentQuery.SearchTitle))
+                query = query.Where(d => d.Title.Contains(documentQuery.SearchTitle));
+
+            var totalCount = query.Count();
+
+            var docs = query.OrderByDescending(d => d.UpdatedAt)
+                    .Skip((documentQuery.PageNumber - 1) * documentQuery.PageSize)
+                    .Take(documentQuery.PageSize)
+                    .ToList();
+            var items = docs.Select(d => MapToDto(d)).ToList();
+            var result = new PaginatedResult<DocumentResponseDTO>
+            {
+                Items = items.Select(t => t.Result).ToList(),
+                TotalCount = totalCount,
+                PageNumber = documentQuery.PageNumber,
+                PageSize = documentQuery.PageSize
+            };
+
+             await _cacheService.SetAsync(cacheKey, result ,TimeSpan.FromMinutes(10));
+            return  result;
         }
 
         public async Task<DocumentResponseDTO> GetByIdAsync(Guid id, Guid UserId)
@@ -77,8 +95,8 @@ namespace ArchivAI.Infrastructure.Services
             await _context.SaveChangesAsync();
             try
             {
-                
-                var text = await _aiService.ExtractTextFromFile(document.FilePath,Path.GetExtension(document.FilePath));
+
+                var text = await _aiService.ExtractTextFromFile(document.FilePath, Path.GetExtension(document.FilePath));
                 var summary = await _aiService.SummarizeAsync(text);
                 document.AISummary = summary;
                 document.Status = DocumentStatus.Ready;
@@ -97,7 +115,7 @@ namespace ArchivAI.Infrastructure.Services
             }
         }
 
-        
+
 
         public async Task<DocumentResponseDTO> UploadAsync(UploadDocumentDTO documentDto, Guid UserId)
         {
@@ -129,6 +147,7 @@ namespace ArchivAI.Infrastructure.Services
             };
             _context.Documents.Add(doument); //add the document to the database context
             _context.SaveChanges(); //save the changes to the database
+            await _cacheService.RemoveByPrefixAsync($"doc:{UserId}"); //remove the cache for the user's documents to ensure the new document is included in future queries
             return await MapToDto(doument);
         }
 

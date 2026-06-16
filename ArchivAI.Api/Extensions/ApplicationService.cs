@@ -3,6 +3,7 @@ using ArchivAI.Infrastructure.Data;
 using ArchivAI.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace ArchivAI.Api.Extensions
 {
@@ -20,6 +21,8 @@ namespace ArchivAI.Api.Extensions
             services.AddScoped<AuthService>(); // Register AuthService for direct injection
             services.AddScoped<IBackGroundService, BackGroundService>();
             services.AddScoped<BackGroundService>();
+            services.AddScoped<ICacheService, CacheService>();
+            services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
             var jwtkey = configuration["JWTSettings:Key"];
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

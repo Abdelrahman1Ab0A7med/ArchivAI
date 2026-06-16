@@ -1,5 +1,6 @@
 ﻿using ArchivAI.Api.Extensions;
 using ArchivAI.Application.DTOs;
+using ArchivAI.Application.DTOs.Document;
 using ArchivAI.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,10 +32,10 @@ namespace ArchivAI.Api.Controllers
             return Ok(result);
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] DocumentQueryDTO documentQuery)
         {
             var user = User.GetUserId();
-            var documents = await _documentService.GetAllAsync(user);
+            var documents = await _documentService.GetAllAsync(documentQuery, user);
             return Ok(documents);
         }
         [HttpGet("{id}")]
