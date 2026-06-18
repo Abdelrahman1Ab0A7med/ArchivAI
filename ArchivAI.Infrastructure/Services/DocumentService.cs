@@ -26,7 +26,33 @@ namespace ArchivAI.Infrastructure.Services
                 Directory.CreateDirectory(_uploadsPath);
             }
         }
-        public async Task<bool> DeleteAsync(Guid id, Guid UserId)
+
+		public async Task<ChatResponseDTO> ChatWithDocumentAsync(ChatRequestDTO chatDto, Guid documentId, Guid userId)
+		{
+            var document = _context.Documents.FirstOrDefault(d => d.Id == documentId && d.AppUserId == userId);
+            if (document == null)
+            {
+				throw new InvalidOperationException("Document not found");
+			}
+            if(document.Status != DocumentStatus.Ready || string.IsNullOrEmpty(document.ExtractedText))
+			{
+				throw new InvalidOperationException("Document is not ready for chat");
+			}
+            var history = await _context.ChatMessages.Where(c=>c.DocumentId == documentId).OrderBy(c => c.CreatedAt).Take(10).Select(c=>new ValueTuple<string, string> ( c.Question, c.Answer) ).ToListAsync();
+            var answer = await _aiService.ChatWithDocument(chatDto.Question, document.ExtractedText, history);
+            var message = new ChatMessage
+			{
+				DocumentId = documentId,
+				Question = chatDto.Question,
+				Answer = answer,
+			};
+			_context.ChatMessages.Add(message);
+			await _context.SaveChangesAsync();
+
+			return new ChatResponseDTO { Answer = answer , Question = chatDto.Question , AskedAt = DateTime.UtcNow };
+		}
+
+		public async Task<bool> DeleteAsync(Guid id, Guid UserId)
         {
             var document = _context.Documents.FirstOrDefault(d => d.Id == id && d.AppUserId == UserId);
             if (document == null) return false;
@@ -83,7 +109,25 @@ namespace ArchivAI.Infrastructure.Services
             return await MapToDto(document);
         }
 
-        public async Task<DocumentResponseDTO> SummarizeDocumentAsync(Guid documentId, Guid userId)
+		public async Task<List<ChatResponseDTO>> GetChatHistoryAsync(Guid userId , Guid documentId)
+		{
+            var documents = _context.Documents.Any(d => d.AppUserId == userId && d.Id == documentId);
+            if(!documents)
+			{
+				throw new InvalidOperationException("Documents not found");
+			}
+            return await _context.ChatMessages
+				.Where(c => c.DocumentId == documentId)
+				.OrderByDescending(c => c.CreatedAt)
+				.Select(c => new ChatResponseDTO
+				{
+					Question = c.Question,
+					Answer = c.Answer,
+					AskedAt = c.CreatedAt
+				}).ToListAsync();
+		}
+
+		public async Task<DocumentResponseDTO> SummarizeDocumentAsync(Guid documentId, Guid userId)
         {
             var document = _context.Documents.FirstOrDefault(d => d.Id == documentId && d.AppUserId == userId);
             if (document == null)
@@ -97,6 +141,7 @@ namespace ArchivAI.Infrastructure.Services
             {
 
                 var text = await _aiService.ExtractTextFromFile(document.FilePath, Path.GetExtension(document.FilePath));
+                document.ExtractedText = text;  
                 var summary = await _aiService.SummarizeAsync(text);
                 document.AISummary = summary;
                 document.Status = DocumentStatus.Ready;

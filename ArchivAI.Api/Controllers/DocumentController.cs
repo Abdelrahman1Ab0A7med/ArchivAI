@@ -53,5 +53,32 @@ namespace ArchivAI.Api.Controllers
             _backGroundService.EnqueueDocumentSummarization(id, user);
             return Ok(new { message = "Summarization queued. Check back shortly." });
         }
+        [HttpGet("{id}/chat/history")]
+        public async Task<IActionResult> GetChatHistory(Guid id)
+        {
+            try
+            {
+                var user = User.GetUserId();
+                var chatHistory = await _documentService.GetChatHistoryAsync(user, id);
+                return Ok(chatHistory);
+            }catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error occurred while fetching chat history." });
+            }
+        }
+        [HttpPost("{id}/chat")]
+        public async Task<IActionResult> Chat(Guid id, [FromBody] ChatRequestDTO chatDto)
+        {
+            try
+            {
+                var user = User.GetUserId();
+                var response = await _documentService.ChatWithDocumentAsync(chatDto, id, user);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Error occurred while processing chat request." });
+            }
+        }
     }
 }

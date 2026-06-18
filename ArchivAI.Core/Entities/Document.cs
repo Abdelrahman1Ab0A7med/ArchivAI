@@ -12,6 +12,7 @@ namespace ArchivAI.Core.Entities
         public string OriginalFileName { get; set; } = string.Empty;
         public string FilePath { get; set; } = string.Empty;
         public long FileSizeInBytes { get; set; }
+        public string? ExtractedText { get; set; } // This will hold the text extracted from the document (if applicable)
         public DocumentType Type { get; set; }
         public DocumentStatus Status { get; set; } = DocumentStatus.Pending;
 

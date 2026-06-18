@@ -1,11 +1,6 @@
 ﻿using ArchivAI.Application.Interfaces;
-using Humanizer;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Mscc.GenerativeAI;
-using Mscc.GenerativeAI.Types;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using UglyToad.PdfPig;
 
@@ -17,7 +12,7 @@ namespace ArchivAI.Infrastructure.Services
 
         public AIService(IConfiguration configuration)
         {
-            var apiKey = configuration["GoogleAi:ApiKey"]??throw new Exception();
+            var apiKey = configuration["GoogleAi:ApiKey"] ?? throw new Exception();
             var GoogleAi = new GoogleAI(apiKey);
             _model = GoogleAi.GenerativeModel("gemini-3.5-flash");
         }
@@ -43,7 +38,7 @@ namespace ArchivAI.Infrastructure.Services
         }
 
         public async Task<string> SummarizeAsync(string text)
-        { 
+        {
             var truncatedText = text.Length > 8000 ? text[..8000] : text;// Truncate the text to fit within the model's context window (e.g., 8000 tokens)
             var prompt = $"""
             You are an expert document analyst.
@@ -55,10 +50,27 @@ namespace ArchivAI.Infrastructure.Services
             """;
             var response = await _model.GenerateContent(prompt);
 
-            return response.Text??"Could not generate summary.";
+            return response.Text ?? "Could not generate summary.";
 
         }
-           
-        
+
+        public async Task<string> ChatWithDocument(string text, string question, List<(string Question, string Answer)> history)
+        {
+            var truncatedText = text.Length > 12000 ? text[..12000] : text;
+            var prompt = $"""
+                            You are a helpful assistant that answers questions about documents.
+                            Only answer based on the document content provided below.
+                            If the answer is not in the document, say "I couldn't find that in the document."
+
+                            Document Content:
+                            {truncatedText}
+
+                            Answer the following question about this document:
+                            {question}
+                         """;
+            var response = await _model.GenerateContent(prompt);
+            return response.Text ?? "Could not generate response.";
+            throw new NotImplementedException();
+        }
     }
 }

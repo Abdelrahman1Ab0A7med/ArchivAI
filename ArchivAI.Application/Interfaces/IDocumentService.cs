@@ -13,6 +13,8 @@ namespace ArchivAI.Application.Interfaces
         Task<PaginatedResult<DocumentResponseDTO>> GetAllAsync(DocumentQueryDTO documentQuery,Guid UserId);
         Task<DocumentResponseDTO> GetByIdAsync(Guid id, Guid UserId);
         Task<bool> DeleteAsync(Guid id, Guid UserId);
+        Task<ChatResponseDTO> ChatWithDocumentAsync(ChatRequestDTO chatDto,Guid documentId,Guid userId);
+        Task<List<ChatResponseDTO>> GetChatHistoryAsync(Guid userId , Guid documentId);
 
     }
 }
